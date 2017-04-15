@@ -1,0 +1,7 @@
+{
+    "jscodehints.detectedExclusions": [
+        "C:/xampp/htdocs/createO/assets/bower_components/jquery/src/outro.js",
+        "C:/xampp/htdocs/master/2/assets/tinymce/plugins/lists/plugin.min.js",
+        "C:/xampp/htdocs/master/2/assets/tinymce/plugins/legacyoutput/plugin.min.js"
+    ]
+}
