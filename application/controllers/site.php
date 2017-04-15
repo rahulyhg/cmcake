@@ -448,138 +448,151 @@ class Site extends CI_Controller
 	}
     public function viewcart()
 {
-$access=array("1");
-$this->checkaccess($access);
-$data["page"]="viewcart";
+    $access=array("1");
+    $this->checkaccess($access);
+    $data["page"]="viewcart";
     $data["before1"]=$this->input->get('id');
-        $data["before2"]=$this->input->get('id');
-        $data["before3"]=$this->input->get('id');
-        $data["before4"]=$this->input->get('id');
-        $data["before5"]=$this->input->get('id');
-$data['page2']='block/userblock';
-$data["base_url"]=site_url("site/viewcartjson?id=").$this->input->get('id');
-$data["title"]="View cart";
-$this->load->view("templatewith2",$data);
+    $data["before2"]=$this->input->get('id');
+    $data["before3"]=$this->input->get('id');
+    $data["before4"]=$this->input->get('id');
+    $data["before5"]=$this->input->get('id');
+    $data['page2']='block/userblock';
+    $data["base_url"]=site_url("site/viewcartjson?id=").$this->input->get('id');
+    $data["title"]="View cart";
+    $this->load->view("templatewith2",$data);
 }
 function viewcartjson()
 {
     $id=$this->input->get('id');
-$elements=array();
-$elements[0]=new stdClass();
-$elements[0]->field="`fynx_cart`.`id`";
-$elements[0]->sort="1";
-$elements[0]->header="ID";
-$elements[0]->alias="id";
-$elements[1]=new stdClass();
-$elements[1]->field="`fynx_cart`.`user`";
-$elements[1]->sort="1";
-$elements[1]->header="User";
-$elements[1]->alias="user";
-$elements[2]=new stdClass();
-$elements[2]->field="`fynx_cart`.`quantity`";
-$elements[2]->sort="1";
-$elements[2]->header="Quantity";
-$elements[2]->alias="quantity";
-$elements[3]=new stdClass();
-$elements[3]->field="`fynx_cart`.`product`";
-$elements[3]->sort="1";
-$elements[3]->header="Product";
-$elements[3]->alias="product";
-$elements[4]=new stdClass();
-$elements[4]->field="`fynx_cart`.`timestamp`";
-$elements[4]->sort="1";
-$elements[4]->header="Timestamp";
-$elements[4]->alias="timestamp";
+    
+    $elements=array();
+    $elements[0]=new stdClass();
+    $elements[0]->field="`fynx_cart`.`id`";
+    $elements[0]->sort="1";
+    $elements[0]->header="ID";
+    $elements[0]->alias="id";
+    
+    $elements[1]=new stdClass();
+    $elements[1]->field="`fynx_cart`.`user`";
+    $elements[1]->sort="1";
+    $elements[1]->header="User";
+    $elements[1]->alias="user";
+    
+    $elements[2]=new stdClass();
+    $elements[2]->field="`fynx_cart`.`quantity`";
+    $elements[2]->sort="1";
+    $elements[2]->header="Quantity";
+    $elements[2]->alias="quantity";
+    
+    $elements[3]=new stdClass();
+    $elements[3]->field="`fynx_cart`.`product`";
+    $elements[3]->sort="1";
+    $elements[3]->header="Product";
+    $elements[3]->alias="product";
+    
+    $elements[4]=new stdClass();
+    $elements[4]->field="`fynx_cart`.`timestamp`";
+    $elements[4]->sort="1";
+    $elements[4]->header="Timestamp";
+    $elements[4]->alias="timestamp";
 
-$elements[5]=new stdClass();
-$elements[5]->field="`fynx_cart`.`size`";
-$elements[5]->sort="1";
-$elements[5]->header="Size";
-$elements[5]->alias="size";
+    $elements[5]=new stdClass();
+    $elements[5]->field="`fynx_cart`.`size`";
+    $elements[5]->sort="1";
+    $elements[5]->header="Size";
+    $elements[5]->alias="size";
 
-$elements[6]=new stdClass();
-$elements[6]->field="`fynx_cart`.`color`";
-$elements[6]->sort="1";
-$elements[6]->header="Color";
-$elements[6]->alias="color";
-$search=$this->input->get_post("search");
-$pageno=$this->input->get_post("pageno");
-$orderby=$this->input->get_post("orderby");
-$orderorder=$this->input->get_post("orderorder");
-$maxrow=$this->input->get_post("maxrow");
-if($maxrow=="")
-{
-$maxrow=20;
-}
-if($orderby=="")
-{
-$orderby="id";
-$orderorder="ASC";
-}
-$data["message"]=$this->chintantable->query($pageno,$maxrow,$orderby,$orderorder,$search,$elements,"FROM `fynx_cart`","WHERE `fynx_cart`.`user`='$id'");
-$this->load->view("json",$data);
+    $elements[6]=new stdClass();
+    $elements[6]->field="`fynx_cart`.`color`";
+    $elements[6]->sort="1";
+    $elements[6]->header="Color";
+    $elements[6]->alias="color";
+    
+    $search=$this->input->get_post("search");
+    $pageno=$this->input->get_post("pageno");
+    $orderby=$this->input->get_post("orderby");
+    $orderorder=$this->input->get_post("orderorder");
+    $maxrow=$this->input->get_post("maxrow");
+    
+    if($maxrow=="")
+    {
+        $maxrow=20;
+    }
+    if($orderby=="")
+    {
+        $orderby="id";
+        $orderorder="ASC";
+    }
+    $data["message"]=$this->chintantable->query($pageno,$maxrow,$orderby,$orderorder,$search,$elements,"FROM `fynx_cart`","WHERE `fynx_cart`.`user`='$id'");
+    $this->load->view("json",$data);
 }
     public function viewwishlist()
 {
-$access=array("1");
-$this->checkaccess($access);
-$data["page"]="viewwishlist";
+    $access=array("1");
+    $this->checkaccess($access);
+    $data["page"]="viewwishlist";
     $data["before1"]=$this->input->get('id');
-        $data["before2"]=$this->input->get('id');
-        $data["before3"]=$this->input->get('id');
-        $data["before4"]=$this->input->get('id');
-        $data["before5"]=$this->input->get('id');
-$data['page2']='block/userblock';
-$data["base_url"]=site_url("site/viewwishlistjson?id=".$this->input->get('id'));
-$data["title"]="View wishlist";
-$this->load->view("templatewith2",$data);
+    $data["before2"]=$this->input->get('id');
+    $data["before3"]=$this->input->get('id');
+    $data["before4"]=$this->input->get('id');
+    $data["before5"]=$this->input->get('id');
+    $data['page2']='block/userblock';
+    $data["base_url"]=site_url("site/viewwishlistjson?id=".$this->input->get('id'));
+    $data["title"]="View wishlist";
+    $this->load->view("templatewith2",$data);
 }
 function viewwishlistjson()
 {
     $user=$this->input->get('id');
-$elements=array();
-$elements[0]=new stdClass();
-$elements[0]->field="`fynx_wishlist`.`id`";
-$elements[0]->sort="1";
-$elements[0]->header="ID";
-$elements[0]->alias="id";
-$elements[1]=new stdClass();
-$elements[1]->field="`fynx_wishlist`.`user`";
-$elements[1]->sort="1";
-$elements[1]->header="User";
-$elements[1]->alias="user";
-$elements[2]=new stdClass();
-$elements[2]->field="`fynx_wishlist`.`product`";
-$elements[2]->sort="1";
-$elements[2]->header="Product";
-$elements[2]->alias="product";
-$elements[3]=new stdClass();
-$elements[3]->field="`fynx_wishlist`.`timestamp`";
-$elements[3]->sort="1";
-$elements[3]->header="Timestamp";
-$elements[3]->alias="timestamp";
+    
+    $elements=array();
+    $elements[0]=new stdClass();
+    $elements[0]->field="`fynx_wishlist`.`id`";
+    $elements[0]->sort="1";
+    $elements[0]->header="ID";
+    $elements[0]->alias="id";
+    
+    $elements[1]=new stdClass();
+    $elements[1]->field="`fynx_wishlist`.`user`";
+    $elements[1]->sort="1";
+    $elements[1]->header="User";
+    $elements[1]->alias="user";
+    
+    $elements[2]=new stdClass();
+    $elements[2]->field="`fynx_wishlist`.`product`";
+    $elements[2]->sort="1";
+    $elements[2]->header="Product";
+    $elements[2]->alias="product";
+    
+    $elements[3]=new stdClass();
+    $elements[3]->field="`fynx_wishlist`.`timestamp`";
+    $elements[3]->sort="1";
+    $elements[3]->header="Timestamp";
+    $elements[3]->alias="timestamp";
 
-$elements[4]=new stdClass();
-$elements[4]->field="`fynx_product`.`name`";
-$elements[4]->sort="1";
-$elements[4]->header="Product Name";
-$elements[4]->alias="productname";
-$search=$this->input->get_post("search");
-$pageno=$this->input->get_post("pageno");
-$orderby=$this->input->get_post("orderby");
-$orderorder=$this->input->get_post("orderorder");
-$maxrow=$this->input->get_post("maxrow");
-if($maxrow=="")
-{
-$maxrow=20;
-}
-if($orderby=="")
-{
-$orderby="id";
-$orderorder="ASC";
-}
-$data["message"]=$this->chintantable->query($pageno,$maxrow,$orderby,$orderorder,$search,$elements,"FROM `fynx_wishlist` LEFT OUTER JOIN `fynx_product` ON `fynx_product`.`id`=`fynx_wishlist`.`product`","WHERE `fynx_wishlist`.`user`='$user'");
-$this->load->view("json",$data);
+    $elements[4]=new stdClass();
+    $elements[4]->field="`fynx_product`.`name`";
+    $elements[4]->sort="1";
+    $elements[4]->header="Product Name";
+    $elements[4]->alias="productname";
+    
+    $search=$this->input->get_post("search");
+    $pageno=$this->input->get_post("pageno");
+    $orderby=$this->input->get_post("orderby");
+    $orderorder=$this->input->get_post("orderorder");
+    $maxrow=$this->input->get_post("maxrow");
+    
+    if($maxrow=="")
+    {
+        $maxrow=20;
+    }
+    if($orderby=="")
+    {
+        $orderby="id";
+        $orderorder="ASC";
+    }
+    $data["message"]=$this->chintantable->query($pageno,$maxrow,$orderby,$orderorder,$search,$elements,"FROM `fynx_wishlist` LEFT OUTER JOIN `fynx_product` ON `fynx_product`.`id`=`fynx_wishlist`.`product`","WHERE `fynx_wishlist`.`user`='$user'");
+    $this->load->view("json",$data);
 }
 
 
@@ -587,30 +600,30 @@ $this->load->view("json",$data);
 
 public function viewcompany()
 {
-$access=array("1");
-$this->checkaccess($access);
-$data["page"]="viewcompany";
-$data["base_url"]=site_url("site/viewcompanyjson");
-$data["title"]="View company";
-$this->load->view("template",$data);
+    $access=array("1");
+    $this->checkaccess($access);
+    $data["page"]="viewcompany";
+    $data["base_url"]=site_url("site/viewcompanyjson");
+    $data["title"]="View company";
+    $this->load->view("template",$data);
 }
     public function viewpackageexpiring()
 {
-$access=array("1");
-$this->checkaccess($access);
-$data["page"]="viewcompany";
-$data["base_url"]=site_url("site/viewcompanyjson1?id=1");
-$data["title"]="View company";
-$this->load->view("template",$data);
+    $access=array("1");
+    $this->checkaccess($access);
+    $data["page"]="viewcompany";
+    $data["base_url"]=site_url("site/viewcompanyjson1?id=1");
+    $data["title"]="View company";
+    $this->load->view("template",$data);
 }
     public function viewblockcompanies()
 {
-$access=array("1");
-$this->checkaccess($access);
-$data["page"]="viewcompany";
-$data["base_url"]=site_url("site/viewcompanyjson1?id=2");
-$data["title"]="View company";
-$this->load->view("template",$data);
+    $access=array("1");
+    $this->checkaccess($access);
+    $data["page"]="viewcompany";
+    $data["base_url"]=site_url("site/viewcompanyjson1?id=2");
+    $data["title"]="View company";
+    $this->load->view("template",$data);
 }
 function viewcompanyjson1()
 {
@@ -634,291 +647,300 @@ function viewcompanyjson1()
     $where="";
     if($id==2)
     {
-    $where="WHERE `master_company`.`isblock`=1";
+        $where="WHERE `master_company`.`isblock`=1";
     }
     else if($id==1)
     {
         // expire
-    $where="WHERE `master_company`.`id` IN $companyids";
+        $where="WHERE `master_company`.`id` IN $companyids";
     }
 
-$elements=array();
-$elements[0]=new stdClass();
-$elements[0]->field="`master_company`.`id`";
-$elements[0]->sort="1";
-$elements[0]->header="Id";
-$elements[0]->alias="id";
+    $elements=array();
+    $elements[0]=new stdClass();
+    $elements[0]->field="`master_company`.`id`";
+    $elements[0]->sort="1";
+    $elements[0]->header="Id";
+    $elements[0]->alias="id";
 
-$elements[1]=new stdClass();
-$elements[1]->field="`master_company`.`name`";
-$elements[1]->sort="1";
-$elements[1]->header="Contact Name";
-$elements[1]->alias="name";
+    $elements[1]=new stdClass();
+    $elements[1]->field="`master_company`.`name`";
+    $elements[1]->sort="1";
+    $elements[1]->header="Contact Name";
+    $elements[1]->alias="name";
 
-$elements[2]=new stdClass();
-$elements[2]->field="`master_company`.`email`";
-$elements[2]->sort="1";
-$elements[2]->header="Contact Email";
-$elements[2]->alias="email";
+    $elements[2]=new stdClass();
+    $elements[2]->field="`master_company`.`email`";
+    $elements[2]->sort="1";
+    $elements[2]->header="Contact Email";
+    $elements[2]->alias="email";
 
-$elements[3]=new stdClass();
-$elements[3]->field="`master_company`.`package`";
-$elements[3]->sort="1";
-$elements[3]->header="Package";
-$elements[3]->alias="package";
+    $elements[3]=new stdClass();
+    $elements[3]->field="`master_company`.`package`";
+    $elements[3]->sort="1";
+    $elements[3]->header="Package";
+    $elements[3]->alias="package";
 
-$elements[4]=new stdClass();
-$elements[4]->field="`master_company`.`isblock`";
-$elements[4]->sort="1";
-$elements[4]->header="isblock";
-$elements[4]->alias="isblock";
-$search=$this->input->get_post("search");
-$pageno=$this->input->get_post("pageno");
-$orderby=$this->input->get_post("orderby");
-$orderorder=$this->input->get_post("orderorder");
-$maxrow=$this->input->get_post("maxrow");
-if($maxrow=="")
-{
-$maxrow=20;
-}
-if($orderby=="")
-{
-$orderby="id";
-$orderorder="ASC";
-}
-$data["message"]=$this->chintantable->query($pageno,$maxrow,$orderby,$orderorder,$search,$elements,"FROM `master_company`","$where");
-$this->load->view("json",$data);
+    $elements[4]=new stdClass();
+    $elements[4]->field="`master_company`.`isblock`";
+    $elements[4]->sort="1";
+    $elements[4]->header="isblock";
+    $elements[4]->alias="isblock";
+    
+    $search=$this->input->get_post("search");
+    $pageno=$this->input->get_post("pageno");
+    $orderby=$this->input->get_post("orderby");
+    $orderorder=$this->input->get_post("orderorder");
+    $maxrow=$this->input->get_post("maxrow");
+    
+    if($maxrow=="")
+    {
+        $maxrow=20;
+    }
+    if($orderby=="")
+    {
+        $orderby="id";
+        $orderorder="ASC";
+    }
+    $data["message"]=$this->chintantable->query($pageno,$maxrow,$orderby,$orderorder,$search,$elements,"FROM `master_company`","$where");
+    $this->load->view("json",$data);
 }
     function viewcompanyjson()
 {
 
-$elements=array();
-$elements[0]=new stdClass();
-$elements[0]->field="`master_company`.`id`";
-$elements[0]->sort="1";
-$elements[0]->header="Id";
-$elements[0]->alias="id";
+    $elements=array();
+    $elements[0]=new stdClass();
+    $elements[0]->field="`master_company`.`id`";
+    $elements[0]->sort="1";
+    $elements[0]->header="Id";
+    $elements[0]->alias="id";
 
-$elements[1]=new stdClass();
-$elements[1]->field="`master_company`.`name`";
-$elements[1]->sort="1";
-$elements[1]->header="Contact Name";
-$elements[1]->alias="name";
+    $elements[1]=new stdClass();
+    $elements[1]->field="`master_company`.`name`";
+    $elements[1]->sort="1";
+    $elements[1]->header="Contact Name";
+    $elements[1]->alias="name";
 
-$elements[2]=new stdClass();
-$elements[2]->field="`master_company`.`email`";
-$elements[2]->sort="1";
-$elements[2]->header=" Contact Email";
-$elements[2]->alias="email";
+    $elements[2]=new stdClass();
+    $elements[2]->field="`master_company`.`email`";
+    $elements[2]->sort="1";
+    $elements[2]->header=" Contact Email";
+    $elements[2]->alias="email";
 
-$elements[3]=new stdClass();
-$elements[3]->field="`master_company`.`package`";
-$elements[3]->sort="1";
-$elements[3]->header="Package";
-$elements[3]->alias="package";
+    $elements[3]=new stdClass();
+    $elements[3]->field="`master_company`.`package`";
+    $elements[3]->sort="1";
+    $elements[3]->header="Package";
+    $elements[3]->alias="package";
 
-$elements[4]=new stdClass();
-$elements[4]->field="`master_company`.`isblock`";
-$elements[4]->sort="1";
-$elements[4]->header="isblock";
-$elements[4]->alias="isblock";
-$search=$this->input->get_post("search");
-$pageno=$this->input->get_post("pageno");
-$orderby=$this->input->get_post("orderby");
-$orderorder=$this->input->get_post("orderorder");
-$maxrow=$this->input->get_post("maxrow");
-if($maxrow=="")
-{
-$maxrow=20;
-}
-if($orderby=="")
-{
-$orderby="id";
-$orderorder="ASC";
-}
-$data["message"]=$this->chintantable->query($pageno,$maxrow,$orderby,$orderorder,$search,$elements,"FROM `master_company`");
-$this->load->view("json",$data);
+    $elements[4]=new stdClass();
+    $elements[4]->field="`master_company`.`isblock`";
+    $elements[4]->sort="1";
+    $elements[4]->header="isblock";
+    $elements[4]->alias="isblock";
+    
+    $search=$this->input->get_post("search");
+    $pageno=$this->input->get_post("pageno");
+    $orderby=$this->input->get_post("orderby");
+    $orderorder=$this->input->get_post("orderorder");
+    $maxrow=$this->input->get_post("maxrow");
+    
+    if($maxrow=="")
+    {
+        $maxrow=20;
+    }
+    if($orderby=="")
+    {
+        $orderby="id";
+        $orderorder="ASC";
+    }
+    $data["message"]=$this->chintantable->query($pageno,$maxrow,$orderby,$orderorder,$search,$elements,"FROM `master_company`");
+    $this->load->view("json",$data);
 }
 
 public function createcompany()
 {
-$access=array("1","2");
-$this->checkaccess($access);
-$data["page"]="createcompany";
-$data['sector']=$this->company_model->getSectorDropDown();
-$data["title"]="Create company";
-$this->load->view("template",$data);
+    $access=array("1","2");
+    $this->checkaccess($access);
+    $data["page"]="createcompany";
+    $data['sector']=$this->company_model->getSectorDropDown();
+    $data["title"]="Create company";
+    $this->load->view("template",$data);
 }
 public function createcompanysubmit()
 {
-$access=array("1","2");
-$this->checkaccess($access);
-$this->form_validation->set_rules("name","Name","trim");
-$this->form_validation->set_rules("email","Email","trim");
-$this->form_validation->set_rules("package","Package","trim");
-if($this->form_validation->run()==FALSE)
-{
-$data["alerterror"]=validation_errors();
-$data['sector']=$this->company_model->getSectorDropDown();
-$data["page"]="createcompany";
-$data["title"]="Create company";
-$this->load->view("template",$data);
-}
-else
-{
-$name=$this->input->get_post("name");
-$email=$this->input->get_post("email");
-$package=$this->input->get_post("package");
-$startdate=$this->input->get_post("startdate");
-$enddate=$this->input->get_post("enddate");
-$sector=$this->input->get_post("sector");
-    $value=$this->company_model->create($name,$email,$package,$startdate,$enddate,$sector);
-if($value==0){
-    $data["alerterror"]="New company could not be created.";
-}
-
-else{
-    $data["alertsuccess"]="company created Successfully.";
-$accesslevelid=$this->session->userdata("accesslevel");
-    if($accesslevelid==1)
+    $access=array("1","2");
+    $this->checkaccess($access);
+    $this->form_validation->set_rules("name","Name","trim");
+    $this->form_validation->set_rules("email","Email","trim");
+    $this->form_validation->set_rules("package","Package","trim");
+    if($this->form_validation->run()==FALSE)
     {
-        $data["redirect"]="site/viewcompany";
-        $this->load->view("redirect",$data);
+        $data["alerterror"]=validation_errors();
+        $data['sector']=$this->company_model->getSectorDropDown();
+        $data["page"]="createcompany";
+        $data["title"]="Create company";
+        $this->load->view("template",$data);
     }
-    else if($accesslevelid==2)
+    else
     {
-        $data["redirect"]="site/editcompany?id=".$value;
-        $this->load->view("redirect2",$data);
+        $name=$this->input->get_post("name");
+        $email=$this->input->get_post("email");
+        $package=$this->input->get_post("package");
+        $startdate=$this->input->get_post("startdate");
+        $enddate=$this->input->get_post("enddate");
+        $sector=$this->input->get_post("sector");
+        $value=$this->company_model->create($name,$email,$package,$startdate,$enddate,$sector);
+    if($value==0){
+        $data["alerterror"]="New company could not be created.";
     }
 
+    else{
+        $data["alertsuccess"]="company created Successfully.";
+    $accesslevelid=$this->session->userdata("accesslevel");
+        if($accesslevelid==1)
+        {
+            $data["redirect"]="site/viewcompany";
+            $this->load->view("redirect",$data);
+        }
+        else if($accesslevelid==2)
+        {
+            $data["redirect"]="site/editcompany?id=".$value;
+            $this->load->view("redirect2",$data);
+        }
 
-}
 
-}
+    }
+
+    }
 }
 public function editcompany()
 {
-$access=array("1","2");
-$this->checkaccess($access);
-$data["page"]="editcompany";
-$data["page2"]="block/companyblock";
-$data["base_url"]=site_url("site/viewcompanypackagejson");
-$data['sector']=$this->company_model->getSectorDropDown();
-$data["before1"]=$this->input->get("id");
-$data["before2"]=$this->input->get("id");
-$data["title"]="Edit company";
-$data["before"]=$this->company_model->beforeedit($this->input->get("id"));
-$data["base_url"]=site_url("site/viewcompanypackagejson?id=".$this->input->get("id"));
-$this->load->view("templatewith2",$data);
+    $access=array("1","2");
+    $this->checkaccess($access);
+    $data["page"]="editcompany";
+    $data["page2"]="block/companyblock";
+    $data["base_url"]=site_url("site/viewcompanypackagejson");
+    $data['sector']=$this->company_model->getSectorDropDown();
+    $data["before1"]=$this->input->get("id");
+    $data["before2"]=$this->input->get("id");
+    $data["title"]="Edit company";
+    $data["before"]=$this->company_model->beforeedit($this->input->get("id"));
+    $data["base_url"]=site_url("site/viewcompanypackagejson?id=".$this->input->get("id"));
+    $this->load->view("templatewith2",$data);
 }
 public function editcompanysubmit()
 {
-$access=array("1","2");
-$this->checkaccess($access);
-$this->form_validation->set_rules("id","Id","trim");
-$this->form_validation->set_rules("name","Name","trim");
-$this->form_validation->set_rules("email","Email","trim");
-$this->form_validation->set_rules("package","Package","trim");
-if($this->form_validation->run()==FALSE)
-{
-$data["alerterror"]=validation_errors();
-$data['sector']=$this->company_model->getSectorDropDown();
-$data["page"]="editcompany";
-$data["title"]="Edit company";
-$data["before"]=$this->company_model->beforeedit($this->input->get("id"));
-$this->load->view("template",$data);
-}
-else
-{
-$id=$this->input->get_post("id");
-$name=$this->input->get_post("name");
-$email=$this->input->get_post("email");
-$package=$this->input->get_post("package");
-$startdate=$this->input->get_post("startdate");
-$enddate=$this->input->get_post("enddate");
-$sector=$this->input->get_post("sector");
-if($this->company_model->edit($id,$name,$email,$package,$startdate,$enddate,$sector)==0)
-$data["alerterror"]="New company could not be Updated.";
-else
-$data["alertsuccess"]="company Updated Successfully.";
-$data["redirect"]="site/viewcompany";
-$this->load->view("redirect",$data);
-}
+    $access=array("1","2");
+    $this->checkaccess($access);
+    $this->form_validation->set_rules("id","Id","trim");
+    $this->form_validation->set_rules("name","Name","trim");
+    $this->form_validation->set_rules("email","Email","trim");
+    $this->form_validation->set_rules("package","Package","trim");
+    if($this->form_validation->run()==FALSE)
+    {
+        $data["alerterror"]=validation_errors();
+        $data['sector']=$this->company_model->getSectorDropDown();
+        $data["page"]="editcompany";
+        $data["title"]="Edit company";
+        $data["before"]=$this->company_model->beforeedit($this->input->get("id"));
+        $this->load->view("template",$data);
+    }
+    else
+    {
+        $id=$this->input->get_post("id");
+        $name=$this->input->get_post("name");
+        $email=$this->input->get_post("email");
+        $package=$this->input->get_post("package");
+        $startdate=$this->input->get_post("startdate");
+        $enddate=$this->input->get_post("enddate");
+        $sector=$this->input->get_post("sector");
+        if($this->company_model->edit($id,$name,$email,$package,$startdate,$enddate,$sector)==0)
+        $data["alerterror"]="New company could not be Updated.";
+        else
+        $data["alertsuccess"]="company Updated Successfully.";
+        $data["redirect"]="site/viewcompany";
+        $this->load->view("redirect",$data);
+    }
 }
 public function deletecompany()
 {
-$access=array("1");
-$this->checkaccess($access);
-$this->company_model->delete($this->input->get("id"));
-$data["redirect"]="site/viewcompany";
-$this->load->view("redirect",$data);
+    $access=array("1");
+    $this->checkaccess($access);
+    $this->company_model->delete($this->input->get("id"));
+    $data["redirect"]="site/viewcompany";
+    $this->load->view("redirect",$data);
 }
     // PACKAGE
 
     public function viewpackage()
 {
-$access=array("1");
-$this->checkaccess($access);
-$data["page"]="viewpackage";
-$data["base_url"]=site_url("site/viewpackagejson");
-$data["title"]="View package";
-$this->load->view("template",$data);
+    $access=array("1");
+    $this->checkaccess($access);
+    $data["page"]="viewpackage";
+    $data["base_url"]=site_url("site/viewpackagejson");
+    $data["title"]="View package";
+    $this->load->view("template",$data);
 }
 function viewpackagejson()
 {
-$elements=array();
-$elements[0]=new stdClass();
-$elements[0]->field="`package`.`id`";
-$elements[0]->sort="1";
-$elements[0]->header="Id";
-$elements[0]->alias="id";
-$elements[1]=new stdClass();
-$elements[1]->field="`package`.`name`";
-$elements[1]->sort="1";
-$elements[1]->header="Name";
-$elements[1]->alias="name";
-$elements[2]=new stdClass();
-$elements[2]->field="`statuses`.`name`";
-$elements[2]->sort="1";
-$elements[2]->header="statusname";
-$elements[2]->alias="statusname";
-$elements[3]=new stdClass();
-$elements[3]->field="`package`.`startdate`";
-$elements[3]->sort="1";
-$elements[3]->header="startdate";
-$elements[3]->alias="startdate";
+    $elements=array();
+    
+    $elements[0]=new stdClass();
+    $elements[0]->field="`package`.`id`";
+    $elements[0]->sort="1";
+    $elements[0]->header="Id";
+    $elements[0]->alias="id";
+    
+    $elements[1]=new stdClass();
+    $elements[1]->field="`package`.`name`";
+    $elements[1]->sort="1";
+    $elements[1]->header="Name";
+    $elements[1]->alias="name";
+    
+    $elements[2]=new stdClass();
+    $elements[2]->field="`statuses`.`name`";
+    $elements[2]->sort="1";
+    $elements[2]->header="statusname";
+    $elements[2]->alias="statusname";
+    
+    $elements[3]=new stdClass();
+    $elements[3]->field="`package`.`startdate`";
+    $elements[3]->sort="1";
+    $elements[3]->header="startdate";
+    $elements[3]->alias="startdate";
 
-$elements[4]=new stdClass();
-$elements[4]->field="`package`.`enddate`";
-$elements[4]->sort="1";
-$elements[4]->header="enddate";
-$elements[4]->alias="enddate";
-$search=$this->input->get_post("search");
-$pageno=$this->input->get_post("pageno");
-$orderby=$this->input->get_post("orderby");
-$orderorder=$this->input->get_post("orderorder");
-$maxrow=$this->input->get_post("maxrow");
-if($maxrow=="")
-{
-$maxrow=20;
-}
-if($orderby=="")
-{
-$orderby="id";
-$orderorder="ASC";
-}
-$data["message"]=$this->chintantable->query($pageno,$maxrow,$orderby,$orderorder,$search,$elements,"FROM `package` LEFT OUTER JOIN `statuses` ON `statuses`.`id`=`package`.`status`");
-$this->load->view("json",$data);
+    $elements[4]=new stdClass();
+    $elements[4]->field="`package`.`enddate`";
+    $elements[4]->sort="1";
+    $elements[4]->header="enddate";
+    $elements[4]->alias="enddate";
+    
+    $search=$this->input->get_post("search");
+    $pageno=$this->input->get_post("pageno");
+    $orderby=$this->input->get_post("orderby");
+    $orderorder=$this->input->get_post("orderorder");
+    $maxrow=$this->input->get_post("maxrow");
+    if($maxrow=="")
+    {
+        $maxrow=20;
+    }
+    if($orderby=="")
+    {
+        $orderby="id";
+        $orderorder="ASC";
+    }
+    $data["message"]=$this->chintantable->query($pageno,$maxrow,$orderby,$orderorder,$search,$elements,"FROM `package` LEFT OUTER JOIN `statuses` ON `statuses`.`id`=`package`.`status`");
+    $this->load->view("json",$data);
 }
 
 public function createpackage()
 {
-$access=array("1","2");
-$this->checkaccess($access);
-$data["page"]="createpackage";
+    $access=array("1","2");
+    $this->checkaccess($access);
+    $data["page"]="createpackage";
     $data[ 'status' ] =$this->user_model->getstatusdropdown();
-$data["title"]="Create package";
-$this->load->view("template",$data);
+    $data["title"]="Create package";
+    $this->load->view("template",$data);
 }
 public function createpackagesubmit()
 {
