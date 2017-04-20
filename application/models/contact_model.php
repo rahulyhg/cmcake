@@ -36,5 +36,23 @@ public function delete($id)
 $query=$this->db->query("DELETE FROM `cm_contact` WHERE `id`='$id'");
 return $query;
 }
+public function getimagebyid($id)
+{
+$query=$this->db->query("SELECT `image` FROM `cm_contact` WHERE `id`='$id'")->row();
+return $query;
+}
+public function getdropdown()
+{
+$query=$this->db->query("SELECT * FROM `cm_contact` ORDER BY `id` 
+                    ASC")->result();
+$return=array(
+"" => "Select Option"
+);
+foreach($query as $row)
+{
+$return[$row->id]=$row->name;
+}
+return $return;
+}
 }
 ?>

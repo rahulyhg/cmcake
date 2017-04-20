@@ -26,6 +26,11 @@ return $query;
 }
 public function edit($id,$name,$image,$icon,$status)
 {
+if($image=="")
+{
+$image=$this->type_model->getimagebyid($id);
+$image=$image->image;
+}
 $data=array("name" => $name,"image" => $image,"icon" => $icon,"status" => $status);
 $this->db->where( "id", $id );
 $query=$this->db->update( "cm_type", $data );
@@ -35,6 +40,24 @@ public function delete($id)
 {
 $query=$this->db->query("DELETE FROM `cm_type` WHERE `id`='$id'");
 return $query;
+}
+public function getimagebyid($id)
+{
+$query=$this->db->query("SELECT `image` FROM `cm_type` WHERE `id`='$id'")->row();
+return $query;
+}
+public function getdropdown()
+{
+$query=$this->db->query("SELECT * FROM `cm_type` ORDER BY `id` 
+                    ASC")->result();
+$return=array(
+"" => "Select Option"
+);
+foreach($query as $row)
+{
+$return[$row->id]=$row->name;
+}
+return $return;
 }
 }
 ?>
