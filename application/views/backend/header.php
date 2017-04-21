@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-<title><?php echo $title;?> - Master Admin</title>
+<title>Creation & More - Admin</title>
 
 <head>
 	<link rel="shortcut icon" href="<?php echo base_url('assets').'/';?>img/favicon.png" type="image/png"/>
@@ -11,6 +11,7 @@
     <link href="<?php echo base_url('assets').'/';?>css/font-awesome.min.css" rel="stylesheet">
     <link href="<?php echo base_url('assets').'/';?>css/jquery.fancybox.css" rel="stylesheet">
     <link rel="stylesheet" href="<?php echo base_url('assets').'/';?>css/linearfonts.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" type="text/css" />
 
     <script src="<?php echo base_url('assets').'/';?>bower_components/jquery/dist/jquery.min.js"></script>
     <script src="<?php echo base_url('assets').'/';?>bower_components/Materialize/dist/js/materialize.min.js"></script>
@@ -25,6 +26,41 @@
 -->
     	<script src="https://code.highcharts.com/highcharts.js"></script>
 <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script>
+$(document).ready(function(){
+	 $("#select1").select2({
+		
+		allowClear: true,
+		//minimumInputLength: 3,
+		
+	 });
+	 $("#select2").select2({
+		
+		allowClear: true,
+		//minimumInputLength: 3,
+		
+	 });
+	 $("#select3").select2({
+		
+		allowClear: true,
+		//minimumInputLength: 3,
+		
+	 });
+	  $("#select4").select2({
+		
+		allowClear: true,
+		//minimumInputLength: 3,
+		
+	 });
+	 $("#select5").select2({
+		
+		allowClear: true,
+		//minimumInputLength: 3,
+		
+	 });
+});
+</script>
+
     <link href='https://fonts.googleapis.com/css?family=Lato:400,100,300,700' rel='stylesheet' type='text/css'>
 
 
@@ -42,7 +78,7 @@
 			<ul id="slide-out" class="side-nav fixed">
 				<li class="sub-menu logo">
 						<a id="logo-container" href="<?php echo site_url(); ?>" class="align-center blue-text text-darken-4" style="font-size: 28px;">
-                            Master Admin<span style="font-weight: 400;"></span>
+                            Creation & More <span style="font-weight: 400;"></span>
 						</a>
                     </li>
                     <?php

@@ -206,7 +206,7 @@ class Site extends CI_Controller
         $data['base_url'] = site_url("site/viewusersjson");
 
 		$data['title']='View Users';
-		$this->load->view('templatewith2',$data);
+		$this->load->view('template',$data);
 	}
     function viewusersjson()
 	{
@@ -302,9 +302,9 @@ class Site extends CI_Controller
 		$data[ 'logintype' ] =$this->user_model->getlogintypedropdown();
 		$data['before']=$this->user_model->beforeedit($this->input->get('id'));
 		$data['page']='edituser';
-//		$data['page2']='block/userblock';
+		$data['page2']='block/userblock';
 		$data['title']='Edit User';
-		$this->load->view('template',$data);
+		$this->load->view('templatewith2',$data);
 	}
 	function editusersubmit()
 	{
@@ -1330,393 +1330,416 @@ $this->load->view("json",$data);
 
 public function createtype()
 {
-$access=array("1");
-$this->checkaccess($access);
-$data["page"]="createtype";
-$data["title"]="Create type";
-$this->load->view("template",$data);
+    $access=array("1");
+    $this->checkaccess($access);
+    $data["page"]="createtype";
+    $data["title"]="Create type";
+    $data['status']=$this->user_model->getstatusdropdown();
+    $this->load->view("template",$data);
 }
 public function createtypesubmit() 
 {
-    print_r($_POST);
-$access=array("1");
-$this->checkaccess($access);
-$this->form_validation->set_rules("name","Name","trim");
-$this->form_validation->set_rules("image","Image","trim");
-$this->form_validation->set_rules("icon","Icon","trim");
-$this->form_validation->set_rules("status","Status","trim");
-if($this->form_validation->run()==FALSE)
-{
-$data["alerterror"]=validation_errors();
-$data["page"]="createtype";
-$data["title"]="Create type";
-$this->load->view("template",$data);
-}
-else
-{
-$id=$this->input->get_post("id");
-$name=$this->input->get_post("name");
-$image=$this->input->get_post("image");
-$icon=$this->input->get_post("icon");
-$status=$this->input->get_post("status");
-if($this->type_model->create($name,$image,$icon,$status)==0)
-$data["alerterror"]="New type could not be created.";
-else
-$data["alertsuccess"]="type created Successfully.";
-$data["redirect"]="site/viewtype";
-$this->load->view("redirect",$data);
-}
+    $access=array("1");
+    $this->checkaccess($access);
+    $this->form_validation->set_rules("name","Name","trim");
+    $this->form_validation->set_rules("icon","Icon","trim");
+    $this->form_validation->set_rules("status","Status","trim");
+    if($this->form_validation->run()==FALSE)
+    {
+        $data["alerterror"]=validation_errors();
+        $data["page"]="createtype";
+        $data["title"]="Create type";
+        $data['status']=$this->user_model->getstatusdropdown();
+        $this->load->view("template",$data);
+    }
+    else
+    {
+        $id=$this->input->get_post("id");
+        $name=$this->input->get_post("name");
+        $image=$this->input->get_post("image");
+        $icon=$this->input->get_post("icon");
+        $status=$this->input->get_post("status");
+        $image=$this->menu_model->createImage();
+        if($this->type_model->create($name,$image,$icon,$status)==0)
+        $data["alerterror"]="New type could not be created.";
+        else
+        $data["alertsuccess"]="type created Successfully.";
+        $data["redirect"]="site/viewtype";
+        $this->load->view("redirect",$data);
+    }
 }
 public function edittype()
 {
-$access=array("1");
-$this->checkaccess($access);
-$data["page"]="edittype";
-$data["title"]="Edit type";
-$data["before"]=$this->type_model->beforeedit($this->input->get("id"));
-$this->load->view("template",$data);
+    $access=array("1");
+    $this->checkaccess($access);
+    $data["page"]="edittype";
+    $data["title"]="Edit type";
+    $data['status']=$this->user_model->getstatusdropdown();
+    $data["before"]=$this->type_model->beforeedit($this->input->get("id"));
+    $this->load->view("template",$data);
 }
 public function edittypesubmit()
 {
-$access=array("1");
-$this->checkaccess($access);
-$this->form_validation->set_rules("id","ID","trim");
-$this->form_validation->set_rules("name","Name","trim");
-$this->form_validation->set_rules("image","Image","trim");
-$this->form_validation->set_rules("icon","Icon","trim");
-$this->form_validation->set_rules("status","Status","trim");
-if($this->form_validation->run()==FALSE)
-{
-$data["alerterror"]=validation_errors();
-$data["page"]="edittype";
-$data["title"]="Edit type";
-$data["before"]=$this->type_model->beforeedit($this->input->get("id"));
-$this->load->view("template",$data);
-}
-else
-{
-$id=$this->input->get_post("id");
-$name=$this->input->get_post("name");
-$image=$this->input->get_post("image");
-$icon=$this->input->get_post("icon");
-$status=$this->input->get_post("status");
-if($this->type_model->edit($id,$name,$image,$icon,$status)==0)
-$data["alerterror"]="New type could not be Updated.";
-else
-$data["alertsuccess"]="type Updated Successfully.";
-$data["redirect"]="site/viewtype";
-$this->load->view("redirect",$data);
-}
+    $access=array("1");
+    $this->checkaccess($access);
+    $this->form_validation->set_rules("id","ID","trim");
+    $this->form_validation->set_rules("name","Name","trim");
+    $this->form_validation->set_rules("image","Image","trim");
+    $this->form_validation->set_rules("icon","Icon","trim");
+    $this->form_validation->set_rules("status","Status","trim");
+    if($this->form_validation->run()==FALSE)
+    {
+        $data["alerterror"]=validation_errors();
+        $data["page"]="edittype";
+        $data["title"]="Edit type";
+        $data['status']=$this->user_model->getstatusdropdown();
+        $data["before"]=$this->type_model->beforeedit($this->input->get("id"));
+        $this->load->view("template",$data);
+    }
+    else
+    {
+        $id=$this->input->get_post("id");
+        $name=$this->input->get_post("name");
+        $image=$this->input->get_post("image");
+        $icon=$this->input->get_post("icon");
+        $status=$this->input->get_post("status");
+        $image=$this->menu_model->createImage();
+        if($this->type_model->edit($id,$name,$image,$icon,$status)==0)
+        $data["alerterror"]="New type could not be Updated.";
+        else
+        $data["alertsuccess"]="type Updated Successfully.";
+        $data["redirect"]="site/viewtype";
+        $this->load->view("redirect",$data);
+    }
 }
 public function deletetype()
 {
-$access=array("1");
-$this->checkaccess($access);
-$this->type_model->delete($this->input->get("id"));
-$data["redirect"]="site/viewtype";
-$this->load->view("redirect",$data);
+    $access=array("1");
+    $this->checkaccess($access);
+    $this->type_model->delete($this->input->get("id"));
+    $data["redirect"]="site/viewtype";
+    $this->load->view("redirect",$data);
 }
 public function viewcake()
 {
-$access=array("1");
-$this->checkaccess($access);
-$data["page"]="viewcake";
-$data["base_url"]=site_url("site/viewcakejson");
-$data["title"]="View cake";
-$this->load->view("template",$data);
+    $access=array("1");
+    $this->checkaccess($access);
+    $data["page"]="viewcake";
+    $data["base_url"]=site_url("site/viewcakejson");
+    $data["title"]="View cake";
+    $this->load->view("template",$data);
 }
 function viewcakejson()
 {
-$elements=array();
-$elements[0]=new stdClass();
-$elements[0]->field="`cm_cake`.`id`";
-$elements[0]->sort="1";
-$elements[0]->header="ID";
-$elements[0]->alias="id";
-$elements[1]=new stdClass();
-$elements[1]->field="`cm_cake`.`name`";
-$elements[1]->sort="1";
-$elements[1]->header="Name";
-$elements[1]->alias="name";
-$elements[2]=new stdClass();
-$elements[2]->field="`cm_cake`.`description`";
-$elements[2]->sort="1";
-$elements[2]->header="Description";
-$elements[2]->alias="description";
-$elements[3]=new stdClass();
-$elements[3]->field="`cm_cake`.`image`";
-$elements[3]->sort="1";
-$elements[3]->header="Image";
-$elements[3]->alias="image";
-$elements[4]=new stdClass();
-$elements[4]->field="`cm_cake`.`price`";
-$elements[4]->sort="1";
-$elements[4]->header="Price";
-$elements[4]->alias="price";
-$elements[5]=new stdClass();
-$elements[5]->field="`cm_cake`.`status`";
-$elements[5]->sort="1";
-$elements[5]->header="Status";
-$elements[5]->alias="status";
-$search=$this->input->get_post("search");
-$pageno=$this->input->get_post("pageno");
-$orderby=$this->input->get_post("orderby");
-$orderorder=$this->input->get_post("orderorder");
-$maxrow=$this->input->get_post("maxrow");
-if($maxrow=="")
-{
-$maxrow=20;
-}
-if($orderby=="")
-{
-$orderby="id";
-$orderorder="ASC";
-}
-$data["message"]=$this->chintantable->query($pageno,$maxrow,$orderby,$orderorder,$search,$elements,"FROM `cm_cake`");
-$this->load->view("json",$data);
+    $elements=array();
+    $elements[0]=new stdClass();
+    $elements[0]->field="`cm_cake`.`id`";
+    $elements[0]->sort="1";
+    $elements[0]->header="ID";
+    $elements[0]->alias="id";
+    $elements[1]=new stdClass();
+    $elements[1]->field="`cm_cake`.`name`";
+    $elements[1]->sort="1";
+    $elements[1]->header="Name";
+    $elements[1]->alias="name";
+    $elements[2]=new stdClass();
+    $elements[2]->field="`cm_cake`.`description`";
+    $elements[2]->sort="1";
+    $elements[2]->header="Description";
+    $elements[2]->alias="description";
+    $elements[3]=new stdClass();
+    $elements[3]->field="`cm_cake`.`image`";
+    $elements[3]->sort="1";
+    $elements[3]->header="Image";
+    $elements[3]->alias="image";
+    $elements[4]=new stdClass();
+    $elements[4]->field="`cm_cake`.`price`";
+    $elements[4]->sort="1";
+    $elements[4]->header="Price";
+    $elements[4]->alias="price";
+    $elements[5]=new stdClass();
+    $elements[5]->field="`cm_cake`.`status`";
+    $elements[5]->sort="1";
+    $elements[5]->header="Status";
+    $elements[5]->alias="status";
+    $search=$this->input->get_post("search");
+    $pageno=$this->input->get_post("pageno");
+    $orderby=$this->input->get_post("orderby");
+    $orderorder=$this->input->get_post("orderorder");
+    $maxrow=$this->input->get_post("maxrow");
+    if($maxrow=="")
+    {
+        $maxrow=20;
+    }
+    if($orderby=="")
+    {
+        $orderby="id";
+        $orderorder="ASC";
+    }
+    $data["message"]=$this->chintantable->query($pageno,$maxrow,$orderby,$orderorder,$search,$elements,"FROM `cm_cake`");
+    $this->load->view("json",$data);
 }
 
 public function createcake()
 {
-$access=array("1");
-$this->checkaccess($access);
-$data["page"]="createcake";
-$data["title"]="Create cake";
-$this->load->view("template",$data);
+    $access=array("1");
+    $this->checkaccess($access);
+    $data["page"]="createcake";
+    $data["title"]="Create cake";
+    $data['status']=$this->user_model->getstatusdropdown();
+    $data['type']=$this->type_model->getdropdown();
+    $this->load->view("template",$data);
 }
 public function createcakesubmit() 
 {
-$access=array("1");
-$this->checkaccess($access);
-$this->form_validation->set_rules("name","Name","trim");
-$this->form_validation->set_rules("description","Description","trim");
-$this->form_validation->set_rules("image","Image","trim");
-$this->form_validation->set_rules("price","Price","trim");
-$this->form_validation->set_rules("status","Status","trim");
-if($this->form_validation->run()==FALSE)
-{
-$data["alerterror"]=validation_errors();
-$data["page"]="createcake";
-$data["title"]="Create cake";
-$this->load->view("template",$data);
-}
-else
-{
-$id=$this->input->get_post("id");
-$name=$this->input->get_post("name");
-$description=$this->input->get_post("description");
-$image=$this->input->get_post("image");
-$price=$this->input->get_post("price");
-$status=$this->input->get_post("status");
-if($this->cake_model->create($name,$description,$image,$price,$status)==0)
-$data["alerterror"]="New cake could not be created.";
-else
-$data["alertsuccess"]="cake created Successfully.";
-$data["redirect"]="site/viewcake";
-$this->load->view("redirect",$data);
-}
+    $access=array("1");
+    $this->checkaccess($access);
+    $this->form_validation->set_rules("name","Name","trim");
+    $this->form_validation->set_rules("description","Description","trim");
+    $this->form_validation->set_rules("image","Image","trim");
+    $this->form_validation->set_rules("price","Price","trim");
+    $this->form_validation->set_rules("status","Status","trim");
+    if($this->form_validation->run()==FALSE)
+    {
+        $data["alerterror"]=validation_errors();
+        $data["page"]="createcake";
+        $data["title"]="Create cake";
+        $data['type']=$this->type_model->getdropdown();
+        $data['status']=$this->user_model->getstatusdropdown();
+        $this->load->view("template",$data);
+    }
+    else
+    {
+        $id=$this->input->get_post("id");
+        $name=$this->input->get_post("name");
+        $description=$this->input->get_post("description");
+        $image=$this->input->get_post("image");
+        $price=$this->input->get_post("price");
+        $status=$this->input->get_post("status");
+        $type=$this->input->get_post("type");
+//        print_r($type);
+        $image=$this->menu_model->createimage();
+        if($this->cake_model->create($name,$description,$image,$price,$status,$type)==0)
+        $data["alerterror"]="New cake could not be created.";
+        else
+        $data["alertsuccess"]="cake created Successfully.";
+        $data["redirect"]="site/viewcake";
+        $this->load->view("redirect",$data);
+    }
 }
 public function editcake()
 {
-$access=array("1");
-$this->checkaccess($access);
-$data["page"]="editcake";
-$data["title"]="Edit cake";
-$data["before"]=$this->cake_model->beforeedit($this->input->get("id"));
-$this->load->view("template",$data);
+    $access=array("1");
+    $this->checkaccess($access);
+    $data["page"]="editcake";
+    $data["title"]="Edit cake";
+    $data['type']=$this->type_model->getdropdown();
+    $data[ 'selectedtype' ] =$this->type_model->getselectedtypeforcakedropdown($this->input->get('id'));
+    $data['status']=$this->user_model->getstatusdropdown();
+    $data["before"]=$this->cake_model->beforeedit($this->input->get("id"));
+    $this->load->view("template",$data);
 }
 public function editcakesubmit()
 {
-$access=array("1");
-$this->checkaccess($access);
-$this->form_validation->set_rules("id","ID","trim");
-$this->form_validation->set_rules("name","Name","trim");
-$this->form_validation->set_rules("description","Description","trim");
-$this->form_validation->set_rules("image","Image","trim");
-$this->form_validation->set_rules("price","Price","trim");
-$this->form_validation->set_rules("status","Status","trim");
-if($this->form_validation->run()==FALSE)
-{
-$data["alerterror"]=validation_errors();
-$data["page"]="editcake";
-$data["title"]="Edit cake";
-$data["before"]=$this->cake_model->beforeedit($this->input->get("id"));
-$this->load->view("template",$data);
-}
-else
-{
-$id=$this->input->get_post("id");
-$name=$this->input->get_post("name");
-$description=$this->input->get_post("description");
-$image=$this->input->get_post("image");
-$price=$this->input->get_post("price");
-$status=$this->input->get_post("status");
-if($this->cake_model->edit($id,$name,$description,$image,$price,$status)==0)
-$data["alerterror"]="New cake could not be Updated.";
-else
-$data["alertsuccess"]="cake Updated Successfully.";
-$data["redirect"]="site/viewcake";
-$this->load->view("redirect",$data);
-}
+    $access=array("1");
+    $this->checkaccess($access);
+    $this->form_validation->set_rules("id","ID","trim");
+    $this->form_validation->set_rules("name","Name","trim");
+    $this->form_validation->set_rules("description","Description","trim");
+    $this->form_validation->set_rules("image","Image","trim");
+    $this->form_validation->set_rules("price","Price","trim");
+    $this->form_validation->set_rules("status","Status","trim");
+    if($this->form_validation->run()==FALSE)
+    {
+        $data["alerterror"]=validation_errors();
+        $data["page"]="editcake";
+        $data["title"]="Edit cake";
+        $data['type']=$this->type_model->getdropdown();
+        $data['status']=$this->user_model->getstatusdropdown();
+        $data["before"]=$this->cake_model->beforeedit($this->input->get("id"));
+        $this->load->view("template",$data);
+    }
+    else
+    {
+        $id=$this->input->get_post("id");
+        $name=$this->input->get_post("name");
+        $description=$this->input->get_post("description");
+        $image=$this->input->get_post("image");
+        $price=$this->input->get_post("price");
+        $status=$this->input->get_post("status");
+        $type=$this->input->get_post("type");
+        $image=$this->menu_model->createimage();
+//        print_r($type);
+        if($this->cake_model->edit($id,$name,$description,$image,$price,$status,$type)==0)
+        $data["alerterror"]="New cake could not be Updated.";
+        else
+        $data["alertsuccess"]="cake Updated Successfully.";
+        $data["redirect"]="site/viewcake";
+        $this->load->view("redirect",$data);
+    }
 }
 public function deletecake()
 {
-$access=array("1");
-$this->checkaccess($access);
-$this->cake_model->delete($this->input->get("id"));
-$data["redirect"]="site/viewcake";
-$this->load->view("redirect",$data);
+    $access=array("1");
+    $this->checkaccess($access);
+    $this->cake_model->delete($this->input->get("id"));
+    $data["redirect"]="site/viewcake";
+    $this->load->view("redirect",$data);
 }
 public function viewcontact()
 {
-$access=array("1");
-$this->checkaccess($access);
-$data["page"]="viewcontact";
-$data["base_url"]=site_url("site/viewcontactjson");
-$data["title"]="View contact";
-$this->load->view("template",$data);
+    $access=array("1");
+    $this->checkaccess($access);
+    $data["page"]="viewcontact";
+    $data["base_url"]=site_url("site/viewcontactjson");
+    $data["title"]="View contact";
+    $this->load->view("template",$data);
 }
 function viewcontactjson()
 {
-$elements=array();
-$elements[0]=new stdClass();
-$elements[0]->field="`cm_contact`.`id`";
-$elements[0]->sort="1";
-$elements[0]->header="ID";
-$elements[0]->alias="id";
-$elements[1]=new stdClass();
-$elements[1]->field="`cm_contact`.`name`";
-$elements[1]->sort="1";
-$elements[1]->header="Name";
-$elements[1]->alias="name";
-$elements[2]=new stdClass();
-$elements[2]->field="`cm_contact`.`email`";
-$elements[2]->sort="1";
-$elements[2]->header="Email";
-$elements[2]->alias="email";
-$elements[3]=new stdClass();
-$elements[3]->field="`cm_contact`.`contact`";
-$elements[3]->sort="1";
-$elements[3]->header="Contact";
-$elements[3]->alias="contact";
-$elements[4]=new stdClass();
-$elements[4]->field="`cm_contact`.`message`";
-$elements[4]->sort="1";
-$elements[4]->header="Message";
-$elements[4]->alias="message";
-$elements[5]=new stdClass();
-$elements[5]->field="`cm_contact`.`status`";
-$elements[5]->sort="1";
-$elements[5]->header="Status";
-$elements[5]->alias="status";
-$search=$this->input->get_post("search");
-$pageno=$this->input->get_post("pageno");
-$orderby=$this->input->get_post("orderby");
-$orderorder=$this->input->get_post("orderorder");
-$maxrow=$this->input->get_post("maxrow");
-if($maxrow=="")
-{
-$maxrow=20;
-}
-if($orderby=="")
-{
-$orderby="id";
-$orderorder="ASC";
-}
-$data["message"]=$this->chintantable->query($pageno,$maxrow,$orderby,$orderorder,$search,$elements,"FROM `cm_contact`");
-$this->load->view("json",$data);
+    $elements=array();
+    $elements[0]=new stdClass();
+    $elements[0]->field="`cm_contact`.`id`";
+    $elements[0]->sort="1";
+    $elements[0]->header="ID";
+    $elements[0]->alias="id";
+    $elements[1]=new stdClass();
+    $elements[1]->field="`cm_contact`.`name`";
+    $elements[1]->sort="1";
+    $elements[1]->header="Name";
+    $elements[1]->alias="name";
+    $elements[2]=new stdClass();
+    $elements[2]->field="`cm_contact`.`email`";
+    $elements[2]->sort="1";
+    $elements[2]->header="Email";
+    $elements[2]->alias="email";
+    $elements[3]=new stdClass();
+    $elements[3]->field="`cm_contact`.`contact`";
+    $elements[3]->sort="1";
+    $elements[3]->header="Contact";
+    $elements[3]->alias="contact";
+    $elements[4]=new stdClass();
+    $elements[4]->field="`cm_contact`.`message`";
+    $elements[4]->sort="1";
+    $elements[4]->header="Message";
+    $elements[4]->alias="message";
+    $elements[5]=new stdClass();
+    $elements[5]->field="`cm_contact`.`status`";
+    $elements[5]->sort="1";
+    $elements[5]->header="Status";
+    $elements[5]->alias="status";
+    $search=$this->input->get_post("search");
+    $pageno=$this->input->get_post("pageno");
+    $orderby=$this->input->get_post("orderby");
+    $orderorder=$this->input->get_post("orderorder");
+    $maxrow=$this->input->get_post("maxrow");
+    if($maxrow=="")
+    {
+        $maxrow=20;
+    }
+    if($orderby=="")
+    {
+        $orderby="id";
+        $orderorder="ASC";
+    }
+    $data["message"]=$this->chintantable->query($pageno,$maxrow,$orderby,$orderorder,$search,$elements,"FROM `cm_contact`");
+    $this->load->view("json",$data);
 }
 
 public function createcontact()
 {
-$access=array("1");
-$this->checkaccess($access);
-$data["page"]="createcontact";
-$data["title"]="Create contact";
-$this->load->view("template",$data);
+    $access=array("1");
+    $this->checkaccess($access);
+    $data["page"]="createcontact";
+    $data["title"]="Create contact";
+    $data['status']=$this->user_model->getstatusdropdown();
+    $this->load->view("template",$data);
 }
 public function createcontactsubmit() 
 {
-$access=array("1");
-$this->checkaccess($access);
-$this->form_validation->set_rules("name","Name","trim");
-$this->form_validation->set_rules("email","Email","trim");
-$this->form_validation->set_rules("contact","Contact","trim");
-$this->form_validation->set_rules("message","Message","trim");
-$this->form_validation->set_rules("status","Status","trim");
-if($this->form_validation->run()==FALSE)
-{
-$data["alerterror"]=validation_errors();
-$data["page"]="createcontact";
-$data["title"]="Create contact";
-$this->load->view("template",$data);
-}
-else
-{
-$id=$this->input->get_post("id");
-$name=$this->input->get_post("name");
-$email=$this->input->get_post("email");
-$contact=$this->input->get_post("contact");
-$message=$this->input->get_post("message");
-$status=$this->input->get_post("status");
-if($this->contact_model->create($name,$email,$contact,$message,$status)==0)
-$data["alerterror"]="New contact could not be created.";
-else
-$data["alertsuccess"]="contact created Successfully.";
-$data["redirect"]="site/viewcontact";
-$this->load->view("redirect",$data);
-}
+    $access=array("1");
+    $this->checkaccess($access);
+    $this->form_validation->set_rules("name","Name","trim");
+    $this->form_validation->set_rules("email","Email","trim");
+    $this->form_validation->set_rules("contact","Contact","trim");
+    $this->form_validation->set_rules("message","Message","trim");
+    $this->form_validation->set_rules("status","Status","trim");
+    if($this->form_validation->run()==FALSE)
+    {
+        $data["alerterror"]=validation_errors();
+        $data["page"]="createcontact";
+        $data["title"]="Create contact";
+        $data['status']=$this->user_model->getstatusdropdown();
+        $this->load->view("template",$data);
+    }
+    else
+    {
+        $id=$this->input->get_post("id");
+        $name=$this->input->get_post("name");
+        $email=$this->input->get_post("email");
+        $contact=$this->input->get_post("contact");
+        $message=$this->input->get_post("message");
+        $status=$this->input->get_post("status");
+        if($this->contact_model->create($name,$email,$contact,$message,$status)==0)
+        $data["alerterror"]="New contact could not be created.";
+        else
+        $data["alertsuccess"]="contact created Successfully.";
+        $data["redirect"]="site/viewcontact";
+        $this->load->view("redirect",$data);
+    }
 }
 public function editcontact()
 {
-$access=array("1");
-$this->checkaccess($access);
-$data["page"]="editcontact";
-$data["title"]="Edit contact";
-$data["before"]=$this->contact_model->beforeedit($this->input->get("id"));
-$this->load->view("template",$data);
+    $access=array("1");
+    $this->checkaccess($access);
+    $data["page"]="editcontact";
+    $data["title"]="Edit contact";
+    $data['status']=$this->user_model->getstatusdropdown();
+    $data["before"]=$this->contact_model->beforeedit($this->input->get("id"));
+    $this->load->view("template",$data);
 }
 public function editcontactsubmit()
 {
-$access=array("1");
-$this->checkaccess($access);
-$this->form_validation->set_rules("id","ID","trim");
-$this->form_validation->set_rules("name","Name","trim");
-$this->form_validation->set_rules("email","Email","trim");
-$this->form_validation->set_rules("contact","Contact","trim");
-$this->form_validation->set_rules("message","Message","trim");
-$this->form_validation->set_rules("status","Status","trim");
-if($this->form_validation->run()==FALSE)
-{
-$data["alerterror"]=validation_errors();
-$data["page"]="editcontact";
-$data["title"]="Edit contact";
-$data["before"]=$this->contact_model->beforeedit($this->input->get("id"));
-$this->load->view("template",$data);
-}
-else
-{
-$id=$this->input->get_post("id");
-$name=$this->input->get_post("name");
-$email=$this->input->get_post("email");
-$contact=$this->input->get_post("contact");
-$message=$this->input->get_post("message");
-$status=$this->input->get_post("status");
-if($this->contact_model->edit($id,$name,$email,$contact,$message,$status)==0)
-$data["alerterror"]="New contact could not be Updated.";
-else
-$data["alertsuccess"]="contact Updated Successfully.";
-$data["redirect"]="site/viewcontact";
-$this->load->view("redirect",$data);
-}
+    $access=array("1");
+    $this->checkaccess($access);
+    $this->form_validation->set_rules("id","ID","trim");
+    $this->form_validation->set_rules("name","Name","trim");
+    $this->form_validation->set_rules("email","Email","trim");
+    $this->form_validation->set_rules("contact","Contact","trim");
+    $this->form_validation->set_rules("message","Message","trim");
+    $this->form_validation->set_rules("status","Status","trim");
+    if($this->form_validation->run()==FALSE)
+    {
+        $data["alerterror"]=validation_errors();
+        $data["page"]="editcontact";
+        $data["title"]="Edit contact";
+        $data['status']=$this->user_model->getstatusdropdown();
+        $data["before"]=$this->contact_model->beforeedit($this->input->get("id"));
+        $this->load->view("template",$data);
+    }
+    else
+    {
+        $id=$this->input->get_post("id");
+        $name=$this->input->get_post("name");
+        $email=$this->input->get_post("email");
+        $contact=$this->input->get_post("contact");
+        $message=$this->input->get_post("message");
+        $status=$this->input->get_post("status");
+        if($this->contact_model->edit($id,$name,$email,$contact,$message,$status)==0)
+        $data["alerterror"]="New contact could not be Updated.";
+        else
+        $data["alertsuccess"]="contact Updated Successfully.";
+        $data["redirect"]="site/viewcontact";
+        $this->load->view("redirect",$data);
+    }
 }
 public function deletecontact()
 {
-$access=array("1");
-$this->checkaccess($access);
-$this->contact_model->delete($this->input->get("id"));
-$data["redirect"]="site/viewcontact";
-$this->load->view("redirect",$data);
+    $access=array("1");
+    $this->checkaccess($access);
+    $this->contact_model->delete($this->input->get("id"));
+    $data["redirect"]="site/viewcontact";
+    $this->load->view("redirect",$data);
 }
 
 }
