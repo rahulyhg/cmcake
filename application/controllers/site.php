@@ -1532,12 +1532,15 @@ public function editcake()
     $access=array("1");
     $this->checkaccess($access);
     $data["page"]="editcake";
+    $data["page2"]="block/cakeblock";
     $data["title"]="Edit cake";
     $data['type']=$this->type_model->getdropdown();
     $data[ 'selectedtype' ] =$this->type_model->getselectedtypeforcakedropdown($this->input->get('id'));
     $data['status']=$this->user_model->getstatusdropdown();
     $data["before"]=$this->cake_model->beforeedit($this->input->get("id"));
-    $this->load->view("template",$data);
+    $data["before1"]=$this->input->get("id");
+    $data["before2"]=$this->input->get("id");
+    $this->load->view("templatewith2",$data);
 }
 public function editcakesubmit()
 {
