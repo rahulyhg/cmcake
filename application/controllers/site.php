@@ -467,39 +467,39 @@ function viewcartjson()
     $id=$this->input->get('id');
 $elements=array();
 $elements[0]=new stdClass();
-$elements[0]->field="`fynx_cart`.`id`";
+$elements[0]->field="`cart`.`id`";
 $elements[0]->sort="1";
 $elements[0]->header="ID";
 $elements[0]->alias="id";
 $elements[1]=new stdClass();
-$elements[1]->field="`fynx_cart`.`user`";
+$elements[1]->field="`cart`.`user`";
 $elements[1]->sort="1";
 $elements[1]->header="User";
 $elements[1]->alias="user";
 $elements[2]=new stdClass();
-$elements[2]->field="`fynx_cart`.`quantity`";
+$elements[2]->field="`cart`.`quantity`";
 $elements[2]->sort="1";
 $elements[2]->header="Quantity";
 $elements[2]->alias="quantity";
 $elements[3]=new stdClass();
-$elements[3]->field="`fynx_cart`.`product`";
+$elements[3]->field="`cart`.`product`";
 $elements[3]->sort="1";
 $elements[3]->header="Product";
 $elements[3]->alias="product";
 $elements[4]=new stdClass();
-$elements[4]->field="`fynx_cart`.`timestamp`";
+$elements[4]->field="`cart`.`timestamp`";
 $elements[4]->sort="1";
 $elements[4]->header="Timestamp";
 $elements[4]->alias="timestamp";
 
 $elements[5]=new stdClass();
-$elements[5]->field="`fynx_cart`.`size`";
+$elements[5]->field="`cart`.`size`";
 $elements[5]->sort="1";
 $elements[5]->header="Size";
 $elements[5]->alias="size";
 
 $elements[6]=new stdClass();
-$elements[6]->field="`fynx_cart`.`color`";
+$elements[6]->field="`cart`.`color`";
 $elements[6]->sort="1";
 $elements[6]->header="Color";
 $elements[6]->alias="color";
@@ -517,7 +517,7 @@ if($orderby=="")
 $orderby="id";
 $orderorder="ASC";
 }
-$data["message"]=$this->chintantable->query($pageno,$maxrow,$orderby,$orderorder,$search,$elements,"FROM `fynx_cart`","WHERE `fynx_cart`.`user`='$id'");
+$data["message"]=$this->chintantable->query($pageno,$maxrow,$orderby,$orderorder,$search,$elements,"FROM `cart`","WHERE `cart`.`user`='$id'");
 $this->load->view("json",$data);
 }
     public function viewwishlist()
@@ -540,28 +540,28 @@ function viewwishlistjson()
     $user=$this->input->get('id');
 $elements=array();
 $elements[0]=new stdClass();
-$elements[0]->field="`fynx_wishlist`.`id`";
+$elements[0]->field="`wishlist`.`id`";
 $elements[0]->sort="1";
 $elements[0]->header="ID";
 $elements[0]->alias="id";
 $elements[1]=new stdClass();
-$elements[1]->field="`fynx_wishlist`.`user`";
+$elements[1]->field="`wishlist`.`user`";
 $elements[1]->sort="1";
 $elements[1]->header="User";
 $elements[1]->alias="user";
 $elements[2]=new stdClass();
-$elements[2]->field="`fynx_wishlist`.`product`";
+$elements[2]->field="`wishlist`.`product`";
 $elements[2]->sort="1";
 $elements[2]->header="Product";
 $elements[2]->alias="product";
 $elements[3]=new stdClass();
-$elements[3]->field="`fynx_wishlist`.`timestamp`";
+$elements[3]->field="`wishlist`.`timestamp`";
 $elements[3]->sort="1";
 $elements[3]->header="Timestamp";
 $elements[3]->alias="timestamp";
 
 $elements[4]=new stdClass();
-$elements[4]->field="`fynx_product`.`name`";
+$elements[4]->field="`product`.`name`";
 $elements[4]->sort="1";
 $elements[4]->header="Product Name";
 $elements[4]->alias="productname";
@@ -579,7 +579,7 @@ if($orderby=="")
 $orderby="id";
 $orderorder="ASC";
 }
-$data["message"]=$this->chintantable->query($pageno,$maxrow,$orderby,$orderorder,$search,$elements,"FROM `fynx_wishlist` LEFT OUTER JOIN `fynx_product` ON `fynx_product`.`id`=`fynx_wishlist`.`product`","WHERE `fynx_wishlist`.`user`='$user'");
+$data["message"]=$this->chintantable->query($pageno,$maxrow,$orderby,$orderorder,$search,$elements,"FROM `wishlist` LEFT OUTER JOIN `product` ON `product`.`id`=`wishlist`.`product`","WHERE `wishlist`.`user`='$user'");
 $this->load->view("json",$data);
 }
 
@@ -1745,5 +1745,191 @@ public function deletecontact()
     $this->load->view("redirect",$data);
 }
 
+      
+    
+public function viewcakeimage()
+{
+    $access=array("1");
+    $this->checkaccess($access);
+    $data["page"]="viewcakeimage";
+    $data["page2"]="block/cakeblock";
+    $data["before1"]=$this->input->get('id');
+    $data["before2"]=$this->input->get('id');
+    $data["base_url"]=site_url("site/viewcakeimagejson?id=").$this->input->get('id');
+    $data["title"]="View cakeimage";
+    $this->load->view("templatewith2",$data);
+}
+function viewcakeimagejson()
+{
+    $id=$this->input->get('id');
+    $elements=array();
+    $elements[0]=new stdClass();
+    $elements[0]->field="`cakeimage`.`id`";
+    $elements[0]->sort="1";
+    $elements[0]->header="ID";
+    $elements[0]->alias="id";
+    
+    $elements[1]=new stdClass();
+    $elements[1]->field="`cakeimage`.`cake`";
+    $elements[1]->sort="1";
+    $elements[1]->header="cakeid";
+    $elements[1]->alias="cakeid";
+    
+    $elements[2]=new stdClass();
+    $elements[2]->field="`cakeimage`.`image`";
+    $elements[2]->sort="1";
+    $elements[2]->header="Image";
+    $elements[2]->alias="image";
+
+    $elements[3]=new stdClass();
+    $elements[3]->field="`cakeimage`.`order`";
+    $elements[3]->sort="1";
+    $elements[3]->header="Order";
+    $elements[3]->alias="order";
+
+    $elements[4]=new stdClass();
+    $elements[4]->field="`cakeimage`.`description`";
+    $elements[4]->sort="1";
+    $elements[4]->header="description";
+    $elements[4]->alias="description";
+    
+    $elements[5]=new stdClass();
+    $elements[5]->field="`cakeimage`.`timestamp`";
+    $elements[5]->sort="1";
+    $elements[5]->header="Timestamp";
+    $elements[5]->alias="timestamp";
+
+    $elements[6]=new stdClass();
+    $elements[6]->field="`cm_cake`.`name`";
+    $elements[6]->sort="1";
+    $elements[6]->header="Cake";
+    $elements[6]->alias="Cake";
+
+    $search=$this->input->get_post("search");
+    $pageno=$this->input->get_post("pageno");
+    $orderby=$this->input->get_post("orderby");
+    $orderorder=$this->input->get_post("orderorder");
+    $maxrow=$this->input->get_post("maxrow");
+    if($maxrow=="")
+    {
+    $maxrow=20;
+    }
+    if($orderby=="")
+    {
+    $orderby="id";
+    $orderorder="ASC";
+    }
+    $data["message"]=$this->chintantable->query($pageno,$maxrow,$orderby,$orderorder,$search,$elements,"FROM `cakeimage` LEFT OUTER JOIN `cm_cake` ON `cm_cake`.`id`=`cakeimage`.`cake`","WHERE `cakeimage`.`cake`='$id'");
+    $this->load->view("json",$data);
+}
+
+public function createcakeimage()
+{
+    $access=array("1");
+    $this->checkaccess($access);
+    $data["page"]="createcakeimage";
+    $data["page2"]="block/cakeblock";
+    $data["before1"]=$this->input->get("id");
+    $data["before2"]=$this->input->get("id");
+    $data['cake']=$this->cake_model->getdropdown();
+    $data["title"]="Create cakeimage";
+    $this->load->view("templatewith2",$data);
+}
+public function createcakeimagesubmit()
+{
+    $access=array("1");
+    $this->checkaccess($access);
+    $this->form_validation->set_rules("cake","cake","trim");
+    $this->form_validation->set_rules("image","image","trim");
+    $this->form_validation->set_rules("order","order","trim");
+    $this->form_validation->set_rules("description","description","trim");
+    if($this->form_validation->run()==FALSE)
+    {
+        $data["alerterror"]=validation_errors();
+        $data["page"]="createcakeimage";
+        $data["page2"]="block/cakeblock";
+        $data["before1"]=$this->input->get("id");
+        $data["before2"]=$this->input->get("id");
+        $data['cake']=$this->cake_model->getdropdown();
+        $data["title"]="Create cakeimage";
+        $this->load->view("templatewith2",$data);
+    }
+    else
+    {
+        $cake=$this->input->get_post("cake");
+        $order=$this->input->get_post("order");
+        $description=$this->input->get_post("description");
+        
+        $image=$this->menu_model->createimage();
+     
+    if($this->cakeimage_model->create($cake,$image,$order,$description)==0)
+    $data["alerterror"]="New cakeimage could not be created.";
+    else
+    $data["alertsuccess"]="cakeimage created Successfully.";
+    $data["redirect"]="site/viewcakeimage?id=".$cake;
+    $this->load->view("redirect2",$data);
+    }
+}
+public function editcakeimage()
+{
+    $access=array("1");
+    $this->checkaccess($access);
+    $data['cake']=$this->cake_model->getdropdown();
+    $data["page"]="editcakeimage";
+    $data["page2"]="block/cakeblock";
+    $data["before1"]=$this->input->get("cakeid");
+    $data["before2"]=$this->input->get("cakeid");
+    $data["title"]="Edit cakeimage";
+    $data["before"]=$this->cakeimage_model->beforeedit($this->input->get("id"));
+    $this->load->view("templatewith2",$data);
+}
+public function editcakeimagesubmit()
+{
+    $access=array("1");
+    $this->checkaccess($access);
+    $this->form_validation->set_rules("id","ID","trim");
+    $this->form_validation->set_rules("cake","cake","trim");
+    $this->form_validation->set_rules("image","image","trim");
+    $this->form_validation->set_rules("order","order","trim");
+    $this->form_validation->set_rules("description","description","trim");
+    if($this->form_validation->run()==FALSE)
+    {
+        $data["alerterror"]=validation_errors();
+        $data['cake']=$this->cake_model->getdropdown();
+        $data["page"]="editcakeimage";
+        $data["page2"]="block/cakeblock";
+        $data["before1"]=$this->input->get("cake");
+        $data["before2"]=$this->input->get("cake");
+        $data["title"]="Edit cakeimage";
+        $data["before"]=$this->cakeimage_model->beforeedit($this->input->get("id"));
+        $this->load->view("templatewith2",$data);
+    }
+    else
+    {
+        $id=$this->input->get_post("id");
+      
+        $cake=$this->input->get_post("cake");
+        $order=$this->input->get_post("order");
+        $description=$this->input->get_post("description");
+        
+        $image=$this->menu_model->createimage();
+     
+    if($this->cakeimage_model->edit($id,$cake,$image,$order,$description)==0)
+    $data["alerterror"]="New cakeimage could not be Updated.";
+    else
+    $data["alertsuccess"]="cakeimage Updated Successfully.";
+    $data["redirect"]="site/viewcakeimage?id=".$cake;
+    $this->load->view("redirect2",$data);
+    }
+}
+public function deletecakeimage()
+{
+    $access=array("1");
+    $this->checkaccess($access);
+    $this->cakeimage_model->delete($this->input->get("id"));
+    $data["redirect"]="site/viewcakeimage?id=".$this->input->get("cakeid");
+    $this->load->view("redirect2",$data);
+}
+   
 }
 ?>
